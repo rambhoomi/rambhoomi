@@ -3,15 +3,16 @@ import { updateUserRole, updateUserStatus } from '@/lib/actions/users';
 import { Users, Crown, User, Shield, MoreHorizontal } from 'lucide-react';
 
 interface UsersPageProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
     role?: string;
-  };
+  }>;
 }
 
 export default async function UsersPage({ searchParams }: UsersPageProps) {
-  const currentPage = parseInt(searchParams.page || '1');
-  const roleFilter = searchParams.role || 'all';
+  const params = await searchParams;
+  const currentPage = parseInt(params.page || '1');
+  const roleFilter = params.role || 'all';
   
   const { users, totalCount, totalPages } = await getUsers(
     currentPage, 
@@ -68,7 +69,7 @@ export default async function UsersPage({ searchParams }: UsersPageProps) {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {roleOptions.slice(1).map((role) => {
-          const count = users.filter(u => u.role === role.value).length;
+          const count = users.filter((u: any) => u.role === role.value).length;
           const Icon = role.icon;
           return (
             <div key={role.value} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -132,7 +133,7 @@ export default async function UsersPage({ searchParams }: UsersPageProps) {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {users.map((user) => (
+              {users.map((user: any) => (
                 <tr key={user.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">

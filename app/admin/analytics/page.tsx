@@ -46,7 +46,7 @@ export default async function AnalyticsPage() {
     ),
     datasets: [
       {
-        data: Object.values(analytics.propertyStatusDistribution),
+        data: Object.values(analytics.propertyStatusDistribution).map(value => Number(value) || 0),
         backgroundColor: [
           '#10B981', // approved - green
           '#F59E0B', // pending - yellow

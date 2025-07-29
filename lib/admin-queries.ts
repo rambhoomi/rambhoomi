@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server';
 
 export async function getDashboardMetrics() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   try {
     // Get all metrics in parallel
@@ -62,7 +62,7 @@ export async function getDashboardMetrics() {
 }
 
 export async function getRecentActivity() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   try {
     const { data: adminActions } = await supabase

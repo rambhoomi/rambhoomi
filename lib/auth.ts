@@ -2,13 +2,13 @@ import { createClient } from '@/lib/supabase/server';
 import { Profile } from '@/lib/types/database';
 
 export async function getUser() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
   return user;
 }
 
 export async function getUserProfile(userId: string): Promise<{ profile: Profile | null; error: any }> {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: profile, error } = await supabase
     .from('profiles')
     .select('*')

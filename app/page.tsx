@@ -4,21 +4,21 @@ import { Building, Shield, Users, Star, MapPin, Search, ArrowRight, Play, Check,
 export default function Home() {
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/98 backdrop-blur-md border-b border-gray-100/50 z-50 shadow-sm">
+      {/* Premium Navigation */}
+      <nav className="glass border-b border-white/20 shadow-2xl">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex items-center">
-              <Building className="h-9 w-9 text-gray-900" />
-              <span className="ml-3 text-3xl font-light tracking-tight text-gray-900">Rambhoomi</span>
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center group">
+              <Building className="h-7 w-7 text-gray-900 group-hover:scale-110 transition-transform duration-300" />
+              <span className="ml-3 text-2xl font-light tracking-tight bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">Rambhoomi</span>
             </div>
-            <div className="hidden md:flex items-center space-x-10">
-              <a href="#properties" className="text-gray-700 hover:text-gray-900 transition-colors font-medium tracking-wide">Properties</a>
-              <a href="#about" className="text-gray-700 hover:text-gray-900 transition-colors font-medium tracking-wide">About</a>
-              <a href="#contact" className="text-gray-700 hover:text-gray-900 transition-colors font-medium tracking-wide">Contact</a>
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#properties" className="text-gray-700 hover:text-gray-900 transition-all duration-300 font-medium tracking-wide hover:scale-105 transform text-sm">Properties</a>
+              <a href="#about" className="text-gray-700 hover:text-gray-900 transition-all duration-300 font-medium tracking-wide hover:scale-105 transform text-sm">About</a>
+              <a href="#contact" className="text-gray-700 hover:text-gray-900 transition-all duration-300 font-medium tracking-wide hover:scale-105 transform text-sm">Contact</a>
               <Link
                 href="/auth/login"
-                className="bg-gray-900 text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-all duration-300 font-medium tracking-wide"
+                className="bg-gradient-to-r from-gray-900 to-gray-800 text-white px-6 py-2 rounded-full hover:from-gray-800 hover:to-gray-700 transition-all duration-300 font-medium tracking-wide shadow-lg hover:shadow-xl hover:scale-105 transform text-sm"
               >
                 Admin Portal
               </Link>
@@ -28,8 +28,12 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-20 pb-32 bg-gradient-to-br from-gray-50/30 to-white relative overflow-hidden">
+      <section className="pt-20 pb-24 bg-gradient-to-br from-gray-50/30 via-white to-gray-100/40 relative overflow-hidden">
+        {/* Premium background effects */}
         <div className="absolute inset-0 bg-gradient-to-r from-white via-transparent to-gray-50/50"></div>
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-100/20 to-purple-100/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gradient-to-br from-amber-100/20 to-rose-100/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%)] pointer-events-none"></div>
         <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-12">
@@ -38,25 +42,26 @@ export default function Home() {
                   <Award className="h-4 w-4 mr-2" />
                   India's Premier Luxury Platform
                 </div>
-                <h1 className="text-4xl lg:text-6xl font-light text-gray-900 leading-tight tracking-tight">
-                  Exceptional
-                  <span className="block font-extralight italic text-gray-700">Luxury</span>
-                  <span className="block font-normal">Redefined</span>
+                <h1 className="text-4xl lg:text-6xl font-light leading-tight tracking-tight">
+                  <span className="block bg-gradient-to-r from-gray-900 via-gray-800 to-gray-600 bg-clip-text text-transparent animate-fade-in">Exceptional</span>
+                  <span className="block font-extralight italic bg-gradient-to-r from-gray-700 via-gray-600 to-gray-500 bg-clip-text text-transparent animate-fade-in delay-300">Luxury</span>
+                  <span className="block font-normal bg-gradient-to-r from-gray-900 via-gray-800 to-gray-700 bg-clip-text text-transparent animate-fade-in delay-500">Redefined</span>
                 </h1>
-                <p className="text-lg text-gray-600 mt-8 leading-relaxed max-w-xl font-light">
+                <p className="text-base text-gray-600 mt-6 leading-relaxed max-w-xl font-light">
                   Discover India's most exclusive properties — from heritage palaces to modern sanctuaries. 
                   Each stay is curated for the discerning traveler who settles for nothing less than extraordinary.
                 </p>
               </div>
               
-              <div className="flex flex-col sm:flex-row gap-6">
-                <button className="bg-gray-900 text-white px-8 py-4 rounded-full text-base font-medium hover:bg-gray-800 transition-all duration-300 flex items-center justify-center group">
-                  Explore Collection
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button className="relative bg-gray-900 text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-gray-800 transition-all duration-300 flex items-center justify-center group overflow-hidden shadow-2xl hover:shadow-gray-900/25 hover:scale-105">
+                  <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <span className="relative z-10">Explore Collection</span>
+                  <ArrowRight className="relative z-10 ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </button>
-                <button className="border-2 border-gray-200 text-gray-900 px-8 py-4 rounded-full text-base font-medium hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-500 flex items-center justify-center">
-                  <Play className="mr-2 h-4 w-4" />
-                  Experience Preview
+                <button className="relative border-2 border-gray-200 text-gray-900 px-6 py-3 rounded-full text-sm font-medium hover:border-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-500 flex items-center justify-center group backdrop-blur-sm bg-white/80 shadow-lg hover:shadow-xl hover:scale-105">
+                  <Play className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
+                  <span>Experience Preview</span>
                 </button>
               </div>
 
@@ -79,35 +84,36 @@ export default function Home() {
             </div>
 
             <div className="relative">
-              <div className="aspect-[3/4] relative rounded-3xl overflow-hidden shadow-2xl">
+              <div className="aspect-[3/4] relative rounded-3xl overflow-hidden shadow-2xl hover:shadow-3xl transition-all duration-700 group">
                 <img
                   src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&q=80"
                   alt="Luxury Villa"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               </div>
               
-              {/* Floating Stats Cards */}
-              <div className="absolute -left-8 top-24 bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-gray-100/50">
+              {/* Premium Floating Stats Cards */}
+              <div className="absolute -left-8 top-24 bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20 hover:shadow-3xl hover:scale-105 transition-all duration-500 animate-float">
                 <div className="flex items-center space-x-4">
-                  <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center">
-                    <Check className="h-7 w-7 text-emerald-600" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-full flex items-center justify-center shadow-lg">
+                    <Check className="h-7 w-7 text-white" />
                   </div>
                   <div>
-                    <div className="text-xl font-light text-gray-900">98%</div>
+                    <div className="text-xl font-light bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">98%</div>
                     <div className="text-xs text-gray-600 font-medium tracking-wide">Guest Satisfaction</div>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute -right-8 bottom-24 bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-xl border border-gray-100/50">
+              <div className="absolute -right-8 bottom-24 bg-white/90 backdrop-blur-md rounded-2xl p-6 shadow-2xl border border-white/20 hover:shadow-3xl hover:scale-105 transition-all duration-500 animate-float delay-1000">
                 <div className="flex items-center space-x-4">
-                  <div className="w-14 h-14 bg-gray-50 rounded-full flex items-center justify-center">
-                    <MapPin className="h-7 w-7 text-gray-600" />
+                  <div className="w-14 h-14 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center shadow-lg">
+                    <MapPin className="h-7 w-7 text-white" />
                   </div>
                   <div>
-                    <div className="text-xl font-light text-gray-900">25+</div>
+                    <div className="text-xl font-light bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">25+</div>
                     <div className="text-xs text-gray-600 font-medium tracking-wide">Premium Cities</div>
                   </div>
                 </div>
@@ -117,47 +123,51 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Search Section */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-light text-white mb-4">Find Your Perfect Stay</h2>
-            <p className="text-gray-300 font-light">Discover luxury properties across India's most beautiful destinations</p>
+      {/* Premium Search Section */}
+      <section className="py-24 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">
+        {/* Premium background effects */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(59,130,246,0.1),transparent_70%)] pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-blue-600/10 to-purple-600/10 rounded-full blur-3xl animate-pulse"></div>
+        
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl lg:text-4xl font-extralight text-white mb-4 animate-fade-in">Find Your Perfect Stay</h2>
+            <p className="text-lg text-gray-300 font-light animate-fade-in delay-300">Discover luxury properties across India's most beautiful destinations</p>
           </div>
           
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-gray-100/50">
+          <div className="bg-white/95 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/30 hover:shadow-3xl transition-all duration-500 animate-fade-in delay-500">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="space-y-3">
-                <label className="text-sm font-medium text-gray-900 tracking-wide">Location</label>
+                <label className="text-sm font-semibold text-gray-800 tracking-wide">Location</label>
                 <div className="relative">
-                  <MapPin className="absolute left-4 top-4 h-5 w-5 text-gray-500" />
+                  <MapPin className="absolute left-4 top-4 h-5 w-5 text-gray-600" />
                   <input
                     type="text"
                     placeholder="Where to?"
-                    className="w-full pl-12 pr-4 py-4 bg-gray-50/50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-gray-900 focus:border-transparent focus:bg-white transition-all font-light"
+                    className="w-full pl-12 pr-4 py-4 bg-white/80 border border-gray-300/50 rounded-xl text-gray-900 placeholder-gray-600 focus:ring-2 focus:ring-gray-800 focus:border-transparent focus:bg-white transition-all font-medium shadow-sm"
                   />
                 </div>
               </div>
               
               <div className="space-y-3">
-                <label className="text-sm font-medium text-gray-900 tracking-wide">Check-in</label>
+                <label className="text-sm font-semibold text-gray-800 tracking-wide">Check-in</label>
                 <input
                   type="date"
-                  className="w-full px-4 py-4 bg-gray-50/50 border border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-gray-900 focus:border-transparent focus:bg-white transition-all font-light"
+                  className="w-full px-4 py-4 bg-white/80 border border-gray-300/50 rounded-xl text-gray-900 focus:ring-2 focus:ring-gray-800 focus:border-transparent focus:bg-white transition-all font-medium shadow-sm"
                 />
               </div>
               
               <div className="space-y-3">
-                <label className="text-sm font-medium text-gray-900 tracking-wide">Check-out</label>
+                <label className="text-sm font-semibold text-gray-800 tracking-wide">Check-out</label>
                 <input
                   type="date"
-                  className="w-full px-4 py-4 bg-gray-50/50 border border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-gray-900 focus:border-transparent focus:bg-white transition-all font-light"
+                  className="w-full px-4 py-4 bg-white/80 border border-gray-300/50 rounded-xl text-gray-900 focus:ring-2 focus:ring-gray-800 focus:border-transparent focus:bg-white transition-all font-medium shadow-sm"
                 />
               </div>
               
               <div className="space-y-3">
-                <label className="text-sm font-medium text-gray-900 tracking-wide">Guests</label>
-                <select className="w-full px-4 py-4 bg-gray-50/50 border border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-gray-900 focus:border-transparent focus:bg-white transition-all font-light">
+                <label className="text-sm font-semibold text-gray-800 tracking-wide">Guests</label>
+                <select className="w-full px-4 py-4 bg-white/80 border border-gray-300/50 rounded-xl text-gray-900 focus:ring-2 focus:ring-gray-800 focus:border-transparent focus:bg-white transition-all font-medium shadow-sm">
                   <option value="">Select guests</option>
                   <option value="2">2 guests</option>
                   <option value="4">4 guests</option>
@@ -167,9 +177,9 @@ export default function Home() {
               </div>
             </div>
             
-            <button className="w-full mt-8 bg-gray-900 text-white py-4 rounded-xl text-base font-medium hover:bg-gray-800 transition-all duration-300 flex items-center justify-center group shadow-lg">
-              <Search className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
-              Search Properties
+            <button className="w-full mt-6 bg-gradient-to-r from-gray-900 to-gray-800 text-white py-4 rounded-xl text-base font-semibold hover:from-gray-800 hover:to-gray-700 transition-all duration-300 flex items-center justify-center group shadow-xl hover:shadow-2xl hover:scale-105 transform">
+              <Search className="mr-3 h-4 w-4 group-hover:scale-110 transition-transform" />
+              <span>Search Luxury Properties</span>
             </button>
           </div>
         </div>
@@ -179,8 +189,8 @@ export default function Home() {
       <section id="properties" className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-light text-gray-900 mb-4">Featured Luxury Properties</h2>
-            <p className="text-base text-gray-600 max-w-2xl mx-auto font-light">
+            <h2 className="text-2xl lg:text-3xl font-light text-gray-900 mb-4">Featured Luxury Properties</h2>
+            <p className="text-sm text-gray-600 max-w-2xl mx-auto font-light">
               Handpicked exceptional properties that redefine luxury hospitality
             </p>
           </div>
@@ -212,16 +222,17 @@ export default function Home() {
                 features: ["Beach Access", "Infinity Pool", "Sunset View"]
               }
             ].map((property, index) => (
-              <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group">
+              <div key={index} className="bg-white rounded-3xl overflow-hidden shadow-xl hover:shadow-3xl transition-all duration-500 group hover:scale-105 transform border border-gray-100/50 hover:border-gray-200/80">
                 <div className="aspect-[4/3] relative overflow-hidden">
                   <img
                     src={property.image}
                     alt={property.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center">
-                    <Star className="h-4 w-4 text-yellow-400 mr-1" />
-                    <span className="text-sm font-semibold">{property.rating}</span>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent group-hover:from-black/30 transition-all duration-500" />
+                  <div className="absolute top-4 right-4 glass rounded-full px-4 py-2 flex items-center shadow-lg hover:scale-110 transition-transform duration-300">
+                    <Star className="h-4 w-4 text-yellow-400 mr-2 animate-pulse" />
+                    <span className="text-sm font-semibold text-gray-900">{property.rating}</span>
                   </div>
                 </div>
                 
@@ -233,9 +244,9 @@ export default function Home() {
                   
                   <h3 className="text-lg font-medium text-gray-900 mb-3">{property.title}</h3>
                   
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-6">
                     {property.features.map((feature, idx) => (
-                      <span key={idx} className="px-3 py-1 bg-blue-50 text-blue-600 text-sm rounded-full">
+                      <span key={idx} className="px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 text-sm rounded-full border border-blue-100/50 font-medium hover:scale-105 transition-transform duration-300">
                         {feature}
                       </span>
                     ))}
@@ -246,7 +257,7 @@ export default function Home() {
                       <span className="text-xl font-light text-gray-900">{property.price}</span>
                       <span className="text-gray-600 font-light">/night</span>
                     </div>
-                    <button className="bg-gray-900 text-white px-6 py-2 rounded-full hover:bg-gray-800 transition-colors font-medium">
+                    <button className="bg-gradient-to-r from-gray-900 to-gray-800 text-white px-8 py-3 rounded-full hover:from-gray-800 hover:to-gray-700 transition-all duration-300 font-medium shadow-lg hover:shadow-xl hover:scale-105 transform group-hover:animate-pulse">
                       Book Now
                     </button>
                   </div>
@@ -343,12 +354,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      {/* Premium Testimonials */}
+      <section className="py-24 bg-gradient-to-br from-gray-50 via-white to-gray-100/50 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.05),transparent_70%)] pointer-events-none"></div>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
           <div className="text-center mb-20">
-            <h2 className="text-3xl font-light text-gray-900 mb-4">What Our Guests Say</h2>
-            <p className="text-base text-gray-600 font-light">Real experiences from real travelers</p>
+            <h2 className="text-2xl lg:text-3xl font-extralight text-gray-900 mb-4 animate-fade-in">What Our Guests Say</h2>
+            <p className="text-base text-gray-600 font-light animate-fade-in delay-300">Real experiences from real travelers</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -375,14 +387,14 @@ export default function Home() {
                 review: "The beachfront villa in Goa was a dream come true. Perfect for our family vacation. Highly recommended!"
               }
             ].map((testimonial, index) => (
-              <div key={index} className="bg-white rounded-2xl p-8 shadow-lg">
-                <div className="flex items-center mb-4">
+              <div key={index} className="glass rounded-3xl p-8 shadow-2xl hover:shadow-3xl transition-all duration-500 border border-white/20 hover:scale-105 transform group">
+                <div className="flex items-center mb-6">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current group-hover:animate-pulse" />
                   ))}
                 </div>
                 
-                <p className="text-gray-700 mb-8 leading-relaxed font-light text-sm">"{testimonial.review}"</p>
+                <p className="text-gray-700 mb-8 leading-relaxed font-light text-base italic group-hover:text-gray-800 transition-colors duration-300">"{testimonial.review}"</p>
                 
                 <div className="flex items-center">
                   <img
@@ -508,21 +520,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-gray-900">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-light text-white mb-6">
+      {/* Premium CTA Section */}
+      <section className="py-32 bg-gradient-to-br from-gray-900 via-gray-800 to-black relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_70%,rgba(59,130,246,0.15),transparent_70%)] pointer-events-none"></div>
+        <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-purple-600/10 to-blue-600/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-amber-600/10 to-rose-600/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
+          <h2 className="text-3xl lg:text-4xl font-extralight text-white mb-6 animate-fade-in">
             Ready to Experience Luxury?
           </h2>
-          <p className="text-base text-gray-300 mb-12 font-light leading-relaxed">
+          <p className="text-lg text-gray-300 mb-12 font-light leading-relaxed animate-fade-in delay-300">
             Join thousands of travelers who trust Rambhoomi for their luxury stays
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-white text-gray-900 px-8 py-4 rounded-full text-base font-medium hover:bg-gray-100 transition-colors">
+          <div className="flex flex-col sm:flex-row gap-8 justify-center animate-fade-in delay-500">
+            <button className="bg-gradient-to-r from-white to-gray-100 text-gray-900 px-8 py-3 rounded-full text-base font-medium hover:from-gray-100 hover:to-white transition-all duration-300 shadow-2xl hover:shadow-white/25 hover:scale-105 transform">
               Start Exploring
             </button>
-            <button className="border-2 border-gray-300 text-white px-8 py-4 rounded-full text-base font-medium hover:bg-white hover:text-gray-900 transition-colors">
+            <button className="glass border-2 border-white/30 text-white px-8 py-3 rounded-full text-base font-medium hover:bg-white/10 hover:border-white/50 transition-all duration-300 shadow-xl hover:scale-105 transform">
               List Your Property
             </button>
           </div>

@@ -2,15 +2,16 @@ import { getBookings } from '@/lib/actions/bookings';
 import { Calendar, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 
 interface BookingsPageProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
     status?: string;
-  };
+  }>;
 }
 
 export default async function BookingsPage({ searchParams }: BookingsPageProps) {
-  const currentPage = parseInt(searchParams.page || '1');
-  const statusFilter = searchParams.status || 'all';
+  const params = await searchParams;
+  const currentPage = parseInt(params.page || '1');
+  const statusFilter = params.status || 'all';
   
   const { bookings, totalCount, totalPages } = await getBookings(
     currentPage, 
@@ -83,7 +84,7 @@ export default async function BookingsPage({ searchParams }: BookingsPageProps) 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {statusOptions.slice(1).map((status) => {
-          const count = bookings.filter(b => b.status === status.value).length;
+          const count = bookings.filter((b: any) => b.status === status.value).length;
           const Icon = status.icon;
           return (
             <div key={status.value} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
@@ -153,7 +154,7 @@ export default async function BookingsPage({ searchParams }: BookingsPageProps) 
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {bookings.map((booking) => (
+              {bookings.map((booking: any) => (
                 <tr key={booking.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-mono text-gray-900">

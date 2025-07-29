@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 
 export async function getUsers(page: number = 1, limit: number = 10, role?: string) {
   await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
   
   const offset = (page - 1) * limit;
   let query = supabase
@@ -42,7 +42,7 @@ export async function updateUserRole(
   newRole: 'user' | 'owner' | 'admin' | 'super_admin'
 ) {
   const { user } = await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase
     .from('profiles')
@@ -72,7 +72,7 @@ export async function updateUserStatus(
   reason?: string
 ) {
   const { user } = await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase
     .from('profiles')
@@ -98,7 +98,7 @@ export async function updateUserStatus(
 
 export async function deleteUser(userId: string) {
   const { user } = await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase
     .from('profiles')

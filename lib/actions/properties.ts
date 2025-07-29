@@ -7,7 +7,7 @@ import { Property } from '@/lib/types/database';
 
 export async function getProperties(page: number = 1, limit: number = 10, status?: string) {
   await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
   
   const offset = (page - 1) * limit;
   let query = supabase
@@ -43,7 +43,7 @@ export async function getProperties(page: number = 1, limit: number = 10, status
 
 export async function getProperty(id: string) {
   await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data: property, error } = await supabase
     .from('properties')
@@ -68,7 +68,7 @@ export async function updatePropertyStatus(
   notes?: string
 ) {
   const { user } = await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase
     .from('properties')
@@ -100,7 +100,7 @@ export async function bulkUpdatePropertyStatus(
   status: 'pending' | 'approved' | 'rejected' | 'suspended'
 ) {
   const { user } = await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase
     .from('properties')
@@ -131,7 +131,7 @@ export async function bulkUpdatePropertyStatus(
 
 export async function deleteProperty(propertyId: string) {
   const { user } = await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase
     .from('properties')

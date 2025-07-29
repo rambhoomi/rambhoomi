@@ -5,7 +5,7 @@ import { requireAdmin } from '@/lib/auth';
 
 export async function getAnalyticsData() {
   await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
 
   try {
     // Get monthly revenue data for the last 12 months

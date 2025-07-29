@@ -4,15 +4,16 @@ import { Building, Plus, Filter } from 'lucide-react';
 import Link from 'next/link';
 
 interface PropertiesPageProps {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
     status?: string;
-  };
+  }>;
 }
 
 export default async function PropertiesPage({ searchParams }: PropertiesPageProps) {
-  const currentPage = parseInt(searchParams.page || '1');
-  const statusFilter = searchParams.status || 'all';
+  const params = await searchParams;
+  const currentPage = parseInt(params.page || '1');
+  const statusFilter = params.status || 'all';
   
   const { properties, totalCount, totalPages } = await getProperties(
     currentPage, 
@@ -50,7 +51,7 @@ export default async function PropertiesPage({ searchParams }: PropertiesPagePro
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
         {statusOptions.slice(1).map((status) => {
-          const count = properties.filter(p => p.status === status.value).length;
+          const count = properties.filter((p: any) => p.status === status.value).length;
           return (
             <div key={status.value} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
               <div className="flex items-center justify-between">
@@ -97,7 +98,7 @@ export default async function PropertiesPage({ searchParams }: PropertiesPagePro
       {/* Properties Grid */}
       {properties.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {properties.map((property) => (
+          {properties.map((property: any) => (
             <PropertyCard key={property.id} property={property} />
           ))}
         </div>

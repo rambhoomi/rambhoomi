@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 
 export async function getBookings(page: number = 1, limit: number = 10, status?: string) {
   await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
   
   const offset = (page - 1) * limit;
   let query = supabase
@@ -47,7 +47,7 @@ export async function updateBookingStatus(
   notes?: string
 ) {
   const { user } = await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { error } = await supabase
     .from('bookings')
@@ -76,7 +76,7 @@ export async function updateBookingStatus(
 
 export async function getBookingDetails(bookingId: string) {
   await requireAdmin();
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data: booking, error } = await supabase
     .from('bookings')
