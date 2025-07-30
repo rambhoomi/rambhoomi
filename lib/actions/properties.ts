@@ -129,6 +129,109 @@ export async function bulkUpdatePropertyStatus(
   return { success: true };
 }
 
+export async function createProperty(formData: FormData) {
+  const { user } = await requireAdmin();
+  const supabase = await createClient();
+
+  const propertyData = {
+    title: formData.get('title') as string,
+    description: formData.get('description') as string,
+    property_type: formData.get('property_type') as string,
+    bedrooms: parseInt(formData.get('bedrooms') as string),
+    bathrooms: parseInt(formData.get('bathrooms') as string),
+    max_guests: parseInt(formData.get('max_guests') as string),
+    address: formData.get('address') as string,
+    city: formData.get('city') as string,
+    state: formData.get('state') as string,
+    country: formData.get('country') as string,
+    postal_code: formData.get('postal_code') as string,
+    price_per_night: parseFloat(formData.get('price_per_night') as string),
+    cleaning_fee: parseFloat(formData.get('cleaning_fee') as string) || 0,
+    security_deposit: parseFloat(formData.get('security_deposit') as string) || 0,
+    owner_id: user.id,
+    status: 'pending'
+  };
+
+  const { data: property, error } = await supabase
+    .from('properties')
+    .insert(propertyData)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error('Failed to create property: ' + error.message);
+  }
+
+  // Handle image uploads
+  const imageCount = parseInt(formData.get('image_count') as string) || 0;
+  const imageRecords = [];
+
+  for (let i = 0; i < imageCount; i++) {
+    const imageFile = formData.get(`image_${i}`) as File;
+    if (imageFile && imageFile.size > 0) {
+      try {
+        // Generate unique filename
+        const fileExt = imageFile.name.split('.').pop();
+        const fileName = `${property.id}/${Date.now()}_${i}.${fileExt}`;
+        
+        // Upload to Supabase Storage
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from('property-images')
+          .upload(fileName, imageFile, {
+            cacheControl: '3600',
+            upsert: false
+          });
+
+        if (uploadError) {
+          console.error('Image upload error:', uploadError);
+          continue; // Skip this image but continue with others
+        }
+
+        // Get public URL
+        const { data: { publicUrl } } = supabase.storage
+          .from('property-images')
+          .getPublicUrl(fileName);
+
+        // Create image record
+        imageRecords.push({
+          property_id: property.id,
+          image_url: publicUrl,
+          image_alt: `${property.title} - Image ${i + 1}`,
+          display_order: i,
+          is_primary: i === 0
+        });
+      } catch (err) {
+        console.error('Error processing image:', err);
+        // Continue with other images
+      }
+    }
+  }
+
+  // Insert image records
+  if (imageRecords.length > 0) {
+    const { error: imageError } = await supabase
+      .from('property_images')
+      .insert(imageRecords);
+
+    if (imageError) {
+      console.error('Failed to save image records:', imageError);
+      // Don't fail the entire operation, just log the error
+    }
+  }
+
+  // Log admin action
+  await supabase.from('admin_actions').insert({
+    admin_id: user.id,
+    action_type: 'property_created',
+    target_type: 'property',
+    target_id: property.id,
+    notes: `Property created by admin with ${imageRecords.length} images`
+  });
+
+  revalidatePath('/admin/properties');
+  return { success: true, property };
+}
+
 export async function deleteProperty(propertyId: string) {
   const { user } = await requireAdmin();
   const supabase = await createClient();

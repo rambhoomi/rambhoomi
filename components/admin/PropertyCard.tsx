@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Eye, MoreVertical, MapPin, Users, Bed, Bath, Calendar } from 'lucide-react';
 import { updatePropertyStatus, deleteProperty } from '@/lib/actions/properties';
 import { Property } from '@/lib/types/database';
+import Link from 'next/link';
 
 interface PropertyCardProps {
   property: any; // Extended property with profile data
@@ -81,13 +82,13 @@ export default function PropertyCard({ property }: PropertyCardProps) {
             {isMenuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-10">
                 <div className="py-1">
-                  <button
-                    onClick={() => {/* Navigate to property details */}}
+                  <Link
+                    href={`/admin/properties/${property.id}`}
                     className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
                   >
                     <Eye className="mr-3 h-4 w-4" />
                     View Details
-                  </button>
+                  </Link>
                   {property.status === 'pending' && (
                     <>
                       <button
