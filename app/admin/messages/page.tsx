@@ -2,7 +2,7 @@ import { MessageSquare, Clock, User } from 'lucide-react';
 
 export default function MessagesPage() {
   return (
-    <div className="space-y-8">
+      <div className="space-y-8">
       {/* Page Header */}
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Messages</h1>
@@ -33,6 +33,6 @@ export default function MessagesPage() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
   );
 }

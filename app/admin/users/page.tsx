@@ -55,7 +55,7 @@ export default async function UsersPage({ searchParams }: UsersPageProps) {
   };
 
   return (
-    <div className="space-y-8">
+      <div className="space-y-8">
       {/* Page Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -243,7 +243,7 @@ export default async function UsersPage({ searchParams }: UsersPageProps) {
             </div>
           </div>
         </div>
-      )}
-    </div>
+        )}
+      </div>
   );
 }

@@ -1,6 +1,6 @@
 import { getProperties } from '@/lib/actions/properties';
 import PropertyCard from '@/components/admin/PropertyCard';
-import { Building, Plus, Filter } from 'lucide-react';
+import { Building, Plus, Filter, Search, Grid, List } from 'lucide-react';
 import Link from 'next/link';
 
 interface PropertiesPageProps {
@@ -30,70 +30,94 @@ export default async function PropertiesPage({ searchParams }: PropertiesPagePro
   ];
 
   return (
-    <div className="space-y-8">
-      {/* Page Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Properties</h1>
-          <p className="text-gray-600 mt-2">
-            Manage property listings and approval workflows
-          </p>
-        </div>
-        <Link
-          href="/admin/properties/new"
-          className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          <Plus className="h-5 w-5 mr-2" />
-          Add Property
-        </Link>
-      </div>
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {statusOptions.slice(1).map((status) => {
-          const count = properties.filter((p: any) => p.status === status.value).length;
-          return (
-            <div key={status.value} className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">{status.label}</p>
-                  <p className="text-2xl font-bold text-gray-900 mt-1">{count}</p>
-                </div>
-                <Building className="h-8 w-8 text-blue-600" />
-              </div>
+      <div className="space-y-8">
+        {/* Enhanced Page Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Properties</h1>
+            <p className="text-gray-600 mt-2 text-lg">
+              Manage property listings and approval workflows
+            </p>
+          </div>
+          <div className="flex items-center space-x-3">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+              <input
+                type="text"
+                placeholder="Search properties..."
+                className="pl-10 pr-4 py-2 bg-white border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent w-64"
+              />
             </div>
-          );
-        })}
-      </div>
+            <button className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+              <Filter className="h-4 w-4 mr-2" />
+              Filter
+            </button>
+            <Link
+              href="/admin/properties/new"
+              className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Add Property
+            </Link>
+          </div>
+        </div>
 
-      {/* Filter Tabs */}
-      <div className="border-b border-gray-200">
-        <nav className="-mb-px flex space-x-8">
-          {statusOptions.map((status) => {
-            const isActive = statusFilter === status.value;
+        {/* Enhanced Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          {statusOptions.slice(1).map((status, index) => {
+            const count = properties.filter((p: any) => p.status === status.value).length;
+            const colors = [
+              { bg: 'bg-amber-50', text: 'text-amber-600', icon: 'text-amber-600' },
+              { bg: 'bg-emerald-50', text: 'text-emerald-600', icon: 'text-emerald-600' },
+              { bg: 'bg-red-50', text: 'text-red-600', icon: 'text-red-600' },
+              { bg: 'bg-gray-50', text: 'text-gray-600', icon: 'text-gray-600' }
+            ];
+            const color = colors[index] || colors[0];
+            
             return (
-              <Link
-                key={status.value}
-                href={`/admin/properties?status=${status.value}`}
-                className={`py-2 px-1 border-b-2 font-medium text-sm transition-colors ${
-                  isActive
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                }`}
-              >
-                {status.label}
-                {status.count && (
-                  <span className={`ml-2 py-0.5 px-2 rounded-full text-xs ${
-                    isActive ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-900'
-                  }`}>
-                    {status.count}
-                  </span>
-                )}
-              </Link>
+              <div key={status.value} className="group bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg hover:border-gray-200 transition-all duration-300 hover:-translate-y-1">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 uppercase tracking-wide">{status.label}</p>
+                    <p className="text-3xl font-bold text-gray-900 mt-2 tracking-tight">{count}</p>
+                  </div>
+                  <div className={`p-3 rounded-xl ${color.bg} group-hover:scale-110 transition-transform duration-300`}>
+                    <Building className={`h-6 w-6 ${color.icon}`} />
+                  </div>
+                </div>
+              </div>
             );
           })}
-        </nav>
-      </div>
+        </div>
+
+        {/* Enhanced Filter Tabs */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-1">
+          <nav className="flex space-x-1">
+            {statusOptions.map((status) => {
+              const isActive = statusFilter === status.value;
+              return (
+                <Link
+                  key={status.value}
+                  href={`/admin/properties?status=${status.value}`}
+                  className={`flex items-center px-4 py-3 rounded-xl font-medium text-sm transition-all duration-200 ${
+                    isActive
+                      ? 'bg-blue-600 text-white shadow-md'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  }`}
+                >
+                  {status.label}
+                  {status.count && (
+                    <span className={`ml-2 py-1 px-2 rounded-lg text-xs font-semibold ${
+                      isActive ? 'bg-blue-500 text-blue-100' : 'bg-gray-100 text-gray-700'
+                    }`}>
+                      {status.count}
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
 
       {/* Properties Grid */}
       {properties.length > 0 ? (
@@ -165,7 +189,7 @@ export default async function PropertiesPage({ searchParams }: PropertiesPagePro
             </div>
           </div>
         </div>
-      )}
-    </div>
+        )}
+      </div>
   );
 }

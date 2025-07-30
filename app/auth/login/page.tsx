@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
+import Link from 'next/link';
+import { signIn } from '@/lib/actions/auth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -11,8 +11,6 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const router = useRouter();
-  const supabase = createClient();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,31 +18,14 @@ export default function LoginPage() {
     setError('');
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (error) {
-        setError(error.message);
-        return;
+      const result = await signIn(email, password);
+      
+      if (result?.error) {
+        setError(result.error);
       }
-
-      if (data.user) {
-        // Check if user is admin
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', data.user.id)
-          .single();
-
-        if (profile && ['admin', 'super_admin'].includes(profile.role)) {
-          router.push('/admin');
-        } else {
-          router.push('/');
-        }
-      }
+      // If successful, the server action will handle the redirect
     } catch (err) {
+      console.error('Login error:', err);
       setError('An unexpected error occurred');
     } finally {
       setLoading(false);
@@ -117,6 +98,12 @@ export default function LoginPage() {
           
           <div className="mt-6 text-center text-sm text-gray-500">
             <p>Admin access only</p>
+            <p className="mt-2">
+              Need an account?{' '}
+              <Link href="/auth/signup" className="text-blue-600 hover:text-blue-700 font-medium">
+                Sign up here
+              </Link>
+            </p>
           </div>
         </div>
       </div>

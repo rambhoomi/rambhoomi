@@ -70,7 +70,7 @@ export default async function BookingsPage({ searchParams }: BookingsPageProps) 
   };
 
   return (
-    <div className="space-y-8">
+      <div className="space-y-8">
       {/* Page Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -285,7 +285,7 @@ export default async function BookingsPage({ searchParams }: BookingsPageProps) 
             </div>
           </div>
         </div>
-      )}
-    </div>
+        )}
+      </div>
   );
 }

@@ -1,7 +1,12 @@
+'use client';
+
 import Link from 'next/link';
 import { Building, Shield, Users, Star, MapPin, Search, ArrowRight, Play, Check, Award, Globe, Phone, Mail } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function Home() {
+  const { user, profile, loading, isAdmin } = useAuth();
+
   return (
     <div className="min-h-screen bg-white font-sans antialiased">
       {/* Premium Navigation */}
@@ -16,12 +21,30 @@ export default function Home() {
               <a href="#properties" className="text-gray-700 hover:text-gray-900 transition-all duration-300 font-medium tracking-wide hover:scale-105 transform text-sm">Properties</a>
               <a href="#about" className="text-gray-700 hover:text-gray-900 transition-all duration-300 font-medium tracking-wide hover:scale-105 transform text-sm">About</a>
               <a href="#contact" className="text-gray-700 hover:text-gray-900 transition-all duration-300 font-medium tracking-wide hover:scale-105 transform text-sm">Contact</a>
-              <Link
-                href="/auth/login"
-                className="bg-gradient-to-r from-gray-900 to-gray-800 text-white px-6 py-2 rounded-full hover:from-gray-800 hover:to-gray-700 transition-all duration-300 font-medium tracking-wide shadow-lg hover:shadow-xl hover:scale-105 transform text-sm"
-              >
-                Admin Portal
-              </Link>
+              {!loading && (
+                <>
+                  {user ? (
+                    <div className="flex items-center space-x-4">
+                      {isAdmin && (
+                        <Link
+                          href="/admin"
+                          className="bg-gradient-to-r from-gray-900 to-gray-800 text-white px-6 py-2 rounded-full hover:from-gray-800 hover:to-gray-700 transition-all duration-300 font-medium tracking-wide shadow-lg hover:shadow-xl hover:scale-105 transform text-sm"
+                        >
+                          Admin Dashboard
+                        </Link>
+                      )}
+                      <span className="text-gray-700 text-sm">Welcome, {profile?.full_name || user.email}</span>
+                    </div>
+                  ) : (
+                    <Link
+                      href="/auth/login"
+                      className="bg-gradient-to-r from-gray-900 to-gray-800 text-white px-6 py-2 rounded-full hover:from-gray-800 hover:to-gray-700 transition-all duration-300 font-medium tracking-wide shadow-lg hover:shadow-xl hover:scale-105 transform text-sm"
+                    >
+                      Admin Portal
+                    </Link>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -606,12 +629,25 @@ export default function Home() {
             <p className="text-gray-500 text-sm font-light">
               © 2024 Rambhoomi. All rights reserved.
             </p>
-            <Link
-              href="/auth/login"
-              className="mt-4 md:mt-0 bg-white text-gray-900 px-6 py-2 rounded-full hover:bg-gray-100 transition-colors font-medium text-sm"
-            >
-              Admin Dashboard
-            </Link>
+            {!loading && (
+              <>
+                {user && isAdmin ? (
+                  <Link
+                    href="/admin"
+                    className="mt-4 md:mt-0 bg-white text-gray-900 px-6 py-2 rounded-full hover:bg-gray-100 transition-colors font-medium text-sm"
+                  >
+                    Admin Dashboard
+                  </Link>
+                ) : (
+                  <Link
+                    href="/auth/login"
+                    className="mt-4 md:mt-0 bg-white text-gray-900 px-6 py-2 rounded-full hover:bg-gray-100 transition-colors font-medium text-sm"
+                  >
+                    Admin Login
+                  </Link>
+                )}
+              </>
+            )}
           </div>
         </div>
       </footer>
